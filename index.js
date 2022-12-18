@@ -37,12 +37,16 @@ readTextFile("./filename.json", function(text){
 
 
 
+//비디오 호버링 변수 값
+let keepVideoSecond = []
+keepVideoSecond.length = window.localStorage.length
 
-//동영상 추가
+
+//동영상 추가 & 비디오 호버링
 for (let i = 0; i < window.localStorage.length; i++) {
   //비디오 태그 넣기
   const addVideo = document.createElement("video")
-  addVideo.id = document.querySelectorAll("video").length + 1
+  addVideo.id = document.querySelectorAll("video").length
   addVideo.controls = true
   addVideo.volume = 0.4
   document.querySelector("div").appendChild(addVideo)
@@ -70,8 +74,49 @@ for (let i = 0; i < window.localStorage.length; i++) {
     const addBr = document.createElement("br")
     document.querySelector("div").appendChild(addBr)
   }
-}
 
+
+
+  //호버링시 재생
+  const addJsInHtml = document.createElement("script")
+  addJsInHtml.innerHTML = `
+  //호버링시 재생
+  const video${i} = document.getElementById("${i}");
+
+  function startPreview${i}() {
+    video${i}.muted = false;
+    video${i}.currentTime = keepVideoSecond[${i}];
+    //video.playbackRate = 0.5;
+    video${i}.volume = 0.4
+    video${i}.play();
+  }
+
+  function stopPreview${i}() {
+    //video.currentTime = 0;
+    //video.playbackRate = 1;
+    video${i}.pause();
+    keepVideoSecond[${i}] = video${i}.currentTime
+    console.log("%d번 동영상 - %f Second", ${i}, keepVideoSecond[${i}])
+    console.log(keepVideoSecond)
+  }
+
+  video${i}.addEventListener("mouseenter", () => {
+    startPreview${i}();
+  });
+
+  video${i}.addEventListener("mouseleave", () => {
+    stopPreview${i}();
+  });
+  `
+  document.querySelector("body").appendChild(addJsInHtml)
+
+  //호버링 비디오 재생전 시간초 변수 값
+  keepVideoSecond[i] = 0
+
+}
+setTimeout(() => {
+  console.log(keepVideoSecond)
+}, 1000);
 
 
 //비디오 Resize
@@ -105,11 +150,10 @@ function reloadWeb() {
     console.log("Reloaded")
   }
 }
-reloadWeb()
+//reloadWeb()
 
 
 //reverse 버튼 클릭
-
 const reverseBtnClick = document.getElementById("reverse_data")
 
 function runReverse() {
@@ -136,33 +180,5 @@ function runReverse() {
   })
 }
 reverseBtnClick.addEventListener("click", runReverse)
-
-//호버링시 재생
-const video = document.querySelectorAll("video");
-
-let keep = 0
-function startPreview() {
-  video[0].muted = false;
-  video[0].currentTime = keep;
-  //video.playbackRate = 0.5;
-  video[0].volume = 0.4
-  video[0].play();
-}
-
-function stopPreview() {
-  //video.currentTime = 0;
-  //video.playbackRate = 1;
-  video[0].pause();
-  keep = video[0].currentTime
-  console.log(`${keep} Second`)
-}
-
-video[0].addEventListener("mouseenter", () => {
-  startPreview();
-});
-
-video[0].addEventListener("mouseleave", () => {
-  stopPreview();
-});
 
 

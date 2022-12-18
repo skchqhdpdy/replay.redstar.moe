@@ -32,16 +32,15 @@ rsort($files);
   
 $f = json_encode($files, JSON_PRETTY_PRINT);
 echo $f;
-echo " <-- 동영상 목록 php로 따서 json파일로 저장한거 따온거임";
+echo " <-- 동영상 목록 php로 따서 json파일로 저장한거 따온거임 (동영상 개수 : ", count($files),"개)";
+echo " 개발자 도구 콘솔에 여러가지 출력되게 만들어 놨으니 궁금하면 F12 ㄱㄱ ";
 
 #filename.json 파일 생성
 file_put_contents('filename.json', $f);
+?>
 
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-
-
-
-?>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,7 +53,7 @@ file_put_contents('filename.json', $f);
 <body style="background: pink;">
 
     <script>
-        alert("현재 첫 번째 동영상만 마우스 호버링시 자동재생 됩니다. \n\nCurrently, only the first video is played automatically when hovering the mouse.")
+        alert("마우스 호버링시 자동재생 됩니다. \n\nvideo is played automatically when hovering the mouse.")
     </script>
 
     <br>
