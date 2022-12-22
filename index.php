@@ -65,8 +65,7 @@ file_put_contents('filename.json', $f);
 
         if (window.sessionStorage.getItem("Reverse") == 1) {
             document.getElementById("reverse_data").innerText = "Return Data (Video)"
-            console.log("비디오 리버스 된 상태 + 세션스토리지 삭제")
-            window.sessionStorage.removeItem("Reverse")
+            console.log("비디오 리버스 된 상태")
         }
         btnStyle.marginLeft = (width / 2) - 41.2
         btnStyle.border = 0
