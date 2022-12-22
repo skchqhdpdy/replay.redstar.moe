@@ -57,8 +57,8 @@ setTimeout(() => {
 
     //영상 주소 넣기
     const addVideoLink = document.createElement("source")
-    //addVideoLink.src = `http://aodd.xyz:81/replay.redstar.moe/${window.localStorage.getItem(i)}`;
-    addVideoLink.src = window.localStorage.getItem(i);
+    addVideoLink.src = `http://aodd.xyz:81/replay.redstar.moe/${window.localStorage.getItem(i)}`;
+    //addVideoLink.src = window.localStorage.getItem(i);
     document.querySelectorAll("video")[i].appendChild(addVideoLink)
 
     //영상이름 + 링크연결 넣기
